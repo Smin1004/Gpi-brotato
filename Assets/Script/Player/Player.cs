@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class Player : MonoBehaviour
 {
 
     private static Player _instance = null;
     public static Player Instance => _instance;
-    
+
     Rigidbody2D rigid;
     Animator anim;
     Vector3 pos;
@@ -18,9 +19,11 @@ public class Player : MonoBehaviour
     public float moveSpeed;
 
     [Header("Weapon")]
-    public Transform gunPos;
+
     // public Gun_Base nowWeapon;
-    // public List<Gun_Base> weaponList = new List<Gun_Base>();
+    [SerializeField] float radius;
+    [SerializeField] List<Transform> testObj = new();
+    public List<Weapon_Base> weaponList = new List<Weapon_Base>();
     // public List<Gun_Base> prefabList = new List<Gun_Base>();
 
     [Header("Values")]
@@ -55,6 +58,28 @@ public class Player : MonoBehaviour
         //if (!isActive) return;
 
         Move();
+        WeaponSetting();
+    }
+
+    void WeaponSetting()
+    {
+        //testObj > WeaponList
+        float angle;
+        float plusValue = 360 / testObj.Count;
+        float rad;
+        Vector3 plusVector = Vector3.zero;
+        if (testObj.Count <= 2)
+        {
+            plusVector = new Vector3(0,0.5f);
+            angle = 0;
+        }
+        else angle = 90;
+        for (int i = 0; i < testObj.Count; i++)
+        {
+            rad = angle * Mathf.Deg2Rad;
+            testObj[i].transform.position = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad)) * radius + plusVector + transform.position;
+            angle += plusValue;
+        }
     }
 
     void Move()
@@ -71,7 +96,7 @@ public class Player : MonoBehaviour
         rigid.linearVelocity = new Vector2(nor.x * moveSpeed, nor.y * moveSpeed);
 
     }
-    
+
     public void Damage()
     {
         StartCoroutine(damage());
