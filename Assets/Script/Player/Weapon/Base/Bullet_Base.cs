@@ -2,10 +2,8 @@ using UnityEngine;
 
 public abstract class Bullet_Base : MonoBehaviour
 {
-    public SpriteRenderer me;
-
     float cur_lifeTime;
-    [SerializeField] protected float lifeTime;
+    //[SerializeField] protected float lifeTime;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float damage;
 
@@ -17,17 +15,15 @@ public abstract class Bullet_Base : MonoBehaviour
         isStop = _isStop;
     }
 
-    public void Init(float _lifeTime, float _moveSpeed, float _damage)
+    public void Init(float _moveSpeed)
     {
-        lifeTime = _lifeTime;
         moveSpeed = _moveSpeed;
-        damage = _damage;
     }
 
     protected virtual void Update()
     {
         cur_lifeTime += Time.deltaTime;
-        if (cur_lifeTime > lifeTime) Destroy(gameObject);
+        if (cur_lifeTime > 5) Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D hit) {
