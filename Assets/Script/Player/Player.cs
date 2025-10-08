@@ -48,8 +48,8 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         //anim = GetComponent<Animator>();
-        stat = GameManager.Instance.stat;
-        HP = stat.hp;
+        //stat = GameManager.Instance.stat;
+        //HP = stat.hp;
     }
 
     void Update()

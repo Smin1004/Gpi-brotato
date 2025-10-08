@@ -1,9 +1,6 @@
 using UnityEngine;
 
-public class TestWeapon : Weapon_Base
+public class TestWeapon : Piercing_Weapon
 {
-    protected override void Shot()
-    {
-        
-    }
+    
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public abstract class Weapon_Base : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public abstract class Weapon_Base : MonoBehaviour
     public float curDelay;
     public float attackDelay;
     public LayerMask suckableLayer;
-    
+
+    protected bool isFire = false;
+
     protected Vector3 dir_gun;
     protected Vector3 target;
     protected float rot;
@@ -22,11 +25,10 @@ public abstract class Weapon_Base : MonoBehaviour
     {
         FindObj();
 
-        if (curDelay <= attackDelay) curDelay += Time.deltaTime;
-        else Shot();
+        if (curDelay <= attackDelay && !isFire) curDelay += Time.deltaTime;
     }
 
-    void FindObj()
+    protected void FindObj()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range, suckableLayer);
         float dis = range + 10;
@@ -48,14 +50,18 @@ public abstract class Weapon_Base : MonoBehaviour
         float angle = Vector2.SignedAngle(Vector2.right, dir_gun) - 90f;
 
         //startpos.localPosition = _startpos;
-        me.eulerAngles = new Vector3(0, 0, angle);
+        if (!isFire)
+        {
+            if (curDelay <= attackDelay) transform.eulerAngles = new Vector3(0, 0, angle);
+            else { transform.eulerAngles = new Vector3(0, 0, angle); Shot();}
+        }
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
-    
+
     }
 
     protected abstract void Shot();
