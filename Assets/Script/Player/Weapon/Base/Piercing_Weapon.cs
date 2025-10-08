@@ -1,16 +1,11 @@
 using UnityEngine;
 
-public class Piercing_Weapon : MonoBehaviour
+public abstract class Piercing_Weapon : Weapon_Base
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public float hoveringTime;
 
-    // Update is called once per frame
-    void Update()
+    protected override void Shot()
     {
-        
+        me.transform.position
     }
 }
