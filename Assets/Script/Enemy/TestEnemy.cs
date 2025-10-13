@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestEnemy : EnemyBase
+public class TestEnemy : Enemy_Base
 {
 
 }

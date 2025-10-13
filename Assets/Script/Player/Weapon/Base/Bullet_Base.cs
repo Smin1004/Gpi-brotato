@@ -15,9 +15,10 @@ public abstract class Bullet_Base : MonoBehaviour
         isStop = _isStop;
     }
 
-    public void Init(float _moveSpeed)
+    public void Init(float _moveSpeed, float _damage)
     {
         moveSpeed = _moveSpeed;
+        damage = _damage;
     }
 
     protected virtual void Update()
@@ -26,12 +27,9 @@ public abstract class Bullet_Base : MonoBehaviour
         if (cur_lifeTime > 5) Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D hit) {
-        // if (!isHit && hit.collider.TryGetComponent<Enemy_Base>(out var e_hit))
-        // {
-        //     e_hit.Enemy_Damage(damage);
-        //     Hit_Event();
-        // }
+    private void OnCollisionEnter2D(Collision2D hit)
+    {
+        
         // else if (isHit && hit.collider.TryGetComponent<Player>(out var p_hit))
         // {
         //     Player.Instance.Damage();
@@ -41,6 +39,17 @@ public abstract class Bullet_Base : MonoBehaviour
         // {
         //     Hit_Wall(hit);
         // }
+    }
+
+    void OnTriggerEnter2D(Collider2D hit)
+    {
+        if (!isHit && hit.TryGetComponent<Enemy_Base>(out var e_hit))
+        {
+            Debug.Log("bullet HIt");
+            e_hit.Enemy_Damage(damage);
+            e_hit.KnockBack(Player.Instance.transform);
+            Hit_Event();
+        }
     }
 
     protected abstract void Hit_Event();

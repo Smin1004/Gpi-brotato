@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour
+public abstract class Enemy_Base : MonoBehaviour
 {
     [Header("Enemy_Base")]
     protected Transform target;
@@ -33,6 +33,18 @@ public abstract class EnemyBase : MonoBehaviour
         if (!isKnockBack) rb.linearVelocity = direction * speed;
 
         //var hits = Physics2D.RaycastAll(transform.position, direction, fireRange);
+    }
+
+    public virtual void Enemy_Damage(float Damage)
+    {
+        HP -= Damage;
+
+        if (HP <= 0)
+        {
+            if(isDie) return;
+            isDie = true;
+            Destroy(this.gameObject);
+        }
     }
     void KnockOff()
     {

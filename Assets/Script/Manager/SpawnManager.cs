@@ -8,7 +8,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] float spawnRange;
     [SerializeField] float notSpawnRange;
     [SerializeField] GameObject Warning;
-    [SerializeField] EnemyBase testEnemy;
+    [SerializeField] Enemy_Base testEnemy;
+    [SerializeField] float spawnTime;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class SpawnManager : MonoBehaviour
             spawnPos = Player.Instance.transform.position + new Vector3(x, y);
 
             Destroy(Instantiate(Warning, spawnPos, Quaternion.identity, this.transform), 1);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(spawnTime);
 
             var temp = Instantiate(testEnemy, spawnPos, Quaternion.identity, this.transform);
         }

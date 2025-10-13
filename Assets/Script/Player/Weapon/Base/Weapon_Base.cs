@@ -9,6 +9,7 @@ public abstract class Weapon_Base : MonoBehaviour
     public float range;
     public float curDelay;
     public float attackDelay;
+    public float damage;
     public LayerMask suckableLayer;
 
     protected bool isFire = false;
@@ -20,7 +21,7 @@ public abstract class Weapon_Base : MonoBehaviour
 
     public virtual void Setting()
     {
-        hitCollider = me.GetComponent<Collider2D>();
+        me.TryGetComponent(out hitCollider);
     }
 
     protected virtual void Update()
@@ -68,8 +69,9 @@ public abstract class Weapon_Base : MonoBehaviour
 
     public virtual void OnChildHit(Collider2D other)
     {
-        if(other.TryGetComponent<EnemyBase>(out var enemy))
+        if(other.TryGetComponent<Enemy_Base>(out var enemy))
         {
+            enemy.Enemy_Damage(damage);
             enemy.KnockBack(Player.Instance.transform);
         }
     }

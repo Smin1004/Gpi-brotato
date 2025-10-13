@@ -321,6 +321,7 @@ MonoBehaviour:
   range: 2.5
   curDelay: 0
   attackDelay: 1
+  damage: 4
   suckableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -376,6 +377,7 @@ MonoBehaviour:
   range: 2.5
   curDelay: 0
   attackDelay: 1
+  damage: 4
   suckableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -466,12 +468,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 643882533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &582550008
 GameObject:
@@ -542,8 +544,10 @@ MonoBehaviour:
   weaponList:
   - {fileID: 1777741630}
   - {fileID: 1119943480}
+  - {fileID: 2117018840}
   - {fileID: 380340552}
   - {fileID: 452105808}
+  - {fileID: 1668214275}
   checkbox_Size: {x: 0, y: 0}
   cur_ui_delay: 0
   isActive: 0
@@ -616,7 +620,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 519420032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &643882534
@@ -742,6 +747,7 @@ MonoBehaviour:
   range: 4
   curDelay: 0
   attackDelay: 2
+  damage: 0
   suckableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -953,6 +959,7 @@ MonoBehaviour:
   range: 5
   curDelay: 0
   attackDelay: 1
+  damage: 0
   suckableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -1128,6 +1135,7 @@ MonoBehaviour:
   range: 2.5
   curDelay: 0
   attackDelay: 1
+  damage: 4
   suckableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -1574,6 +1582,7 @@ MonoBehaviour:
   range: 5
   curDelay: 0
   attackDelay: 1
+  damage: 0
   suckableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -1764,7 +1773,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1152286884}
-  m_Father: {fileID: 2137870072}
+  m_Father: {fileID: 1780863989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1668214275
 MonoBehaviour:
@@ -1783,6 +1792,7 @@ MonoBehaviour:
   range: 5
   curDelay: 0
   attackDelay: 1
+  damage: 2
   suckableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -1928,6 +1938,7 @@ MonoBehaviour:
   range: 2.5
   curDelay: 0
   attackDelay: 1
+  damage: 4
   suckableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -1966,6 +1977,8 @@ Transform:
   - {fileID: 1119943479}
   - {fileID: 380340551}
   - {fileID: 452105807}
+  - {fileID: 2117018839}
+  - {fileID: 1668214274}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1905272994
@@ -2001,6 +2014,7 @@ MonoBehaviour:
   notSpawnRange: 3
   Warning: {fileID: 1786406546181260083, guid: 97b39198ea34a574aa6f7dc97ea09f2c, type: 3}
   testEnemy: {fileID: 5100096958057104292, guid: 1e599003db888394a844d99b6ce85aa6, type: 3}
+  spawnTime: 1
 --- !u!4 &1905272996
 Transform:
   m_ObjectHideFlags: 0
@@ -2166,7 +2180,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1320427068}
-  m_Father: {fileID: 2137870072}
+  m_Father: {fileID: 1780863989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2117018840
 MonoBehaviour:
@@ -2185,6 +2199,7 @@ MonoBehaviour:
   range: 5
   curDelay: 0
   attackDelay: 1
+  damage: 2
   suckableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -2221,8 +2236,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2117018839}
-  - {fileID: 1668214274}
   - {fileID: 788397410}
   - {fileID: 1453361088}
   m_Father: {fileID: 0}
@@ -2231,7 +2244,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 519420032}
   - {fileID: 643882533}
   - {fileID: 1780863989}
   - {fileID: 2137870072}
