@@ -9,20 +9,20 @@ public abstract class Piercing_Weapon : Weapon_Base
     protected override void Shot()
     {
         isFire = true;
+        hitCollider.enabled = true;
         // me.transform.rotation = new Quaternion(0, 0, rot, 0);
 
-        me.transform.DOLocalMove(new Vector3(0, range), shootingTime);
-        Invoke("Back", hoveringTime);
+        me.transform.DOLocalMove(new Vector3(0, range), shootingTime).OnComplete(() => Invoke(nameof(Back), hoveringTime));
     }
 
     void Back()
     {
-        me.transform.DOLocalMove(new Vector3(0, 0), shootingTime);
-        Invoke("End", shootingTime);
+        me.DOLocalMove(Vector3.zero, shootingTime).OnComplete(() => End());
     }
 
     void End()
     {
+        hitCollider.enabled = false;
         curDelay = 0;
         isFire = false;
     }

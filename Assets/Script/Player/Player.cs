@@ -42,10 +42,14 @@ public class Player : MonoBehaviour
     {
         _instance = this;
     }
-
-    private void Start()
+    void Awake()
     {
         _Instance();
+        //나중에 순서 맞추는 OBJ 만들것
+    }
+    private void Start()
+    {
+        //_Instance();
         rigid = GetComponent<Rigidbody2D>();
         //anim = GetComponent<Animator>();
         //stat = GameManager.Instance.stat;

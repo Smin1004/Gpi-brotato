@@ -4,6 +4,7 @@ using DG.Tweening;
 public abstract class Weapon_Base : MonoBehaviour
 {
     public Transform me;
+    [SerializeField]protected Collider2D hitCollider;
     [Header("Stat")]
     public float range;
     public float curDelay;
@@ -19,7 +20,7 @@ public abstract class Weapon_Base : MonoBehaviour
 
     public virtual void Setting()
     {
-
+        hitCollider = me.GetComponent<Collider2D>();
     }
 
     protected virtual void Update()
@@ -32,6 +33,7 @@ public abstract class Weapon_Base : MonoBehaviour
     protected void FindObj()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range, suckableLayer);
+        if (colliders.Length == 0) return;
         float dis = range + 10;
         Vector3 outValue = Vector3.zero;
         foreach (Collider2D col in colliders)
@@ -44,7 +46,6 @@ public abstract class Weapon_Base : MonoBehaviour
                 outValue = col.transform.position;
             }
         }
-        if (colliders.Length == 0) return;
         dir_gun = new Vector3(outValue.x, outValue.y) - me.transform.position;
         float z = Mathf.Atan2(dir_gun.y, dir_gun.x) * Mathf.Rad2Deg;
         rot = z - 90f;
@@ -63,6 +64,14 @@ public abstract class Weapon_Base : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, range);
 
+    }
+
+    public virtual void OnChildHit(Collider2D other)
+    {
+        if(other.TryGetComponent<EnemyBase>(out var enemy))
+        {
+            enemy.KnockBack(Player.Instance.transform);
+        }
     }
 
     protected abstract void Shot();
