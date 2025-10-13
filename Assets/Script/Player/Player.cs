@@ -21,8 +21,7 @@ public class Player : MonoBehaviour
     [Header("Weapon")]
 
     // public Gun_Base nowWeapon;
-    [SerializeField] float radius;
-    [SerializeField] List<Transform> testObj = new();
+    public float radius;
     public List<Weapon_Base> weaponList = new List<Weapon_Base>();
     // public List<Gun_Base> prefabList = new List<Gun_Base>();
 
@@ -46,6 +45,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        _Instance();
         rigid = GetComponent<Rigidbody2D>();
         //anim = GetComponent<Animator>();
         //stat = GameManager.Instance.stat;
@@ -63,21 +63,21 @@ public class Player : MonoBehaviour
 
     void WeaponSetting()
     {
-        //testObj > WeaponList
         float angle;
-        float plusValue = 360 / testObj.Count;
+        float plusValue = 360 / weaponList.Count;
         float rad;
         Vector3 plusVector = Vector3.zero;
-        if (testObj.Count <= 2)
+        if (weaponList.Count <= 2)
         {
             plusVector = new Vector3(0,0.5f);
             angle = 0;
         }
         else angle = 90;
-        for (int i = 0; i < testObj.Count; i++)
+        for (int i = 0; i < weaponList.Count; i++)
         {
             rad = angle * Mathf.Deg2Rad;
-            testObj[i].transform.position = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad)) * radius + plusVector + transform.position;
+            weaponList[i].transform.position = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad)) * radius + plusVector + transform.position;
+            weaponList[i].Setting();
             angle += plusValue;
         }
     }

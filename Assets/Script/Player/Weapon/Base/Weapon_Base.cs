@@ -15,6 +15,7 @@ public abstract class Weapon_Base : MonoBehaviour
     protected Vector3 dir_gun;
     protected Vector3 target;
     protected float rot;
+    protected float angle;
 
     public virtual void Setting()
     {
@@ -47,7 +48,7 @@ public abstract class Weapon_Base : MonoBehaviour
         dir_gun = new Vector3(outValue.x, outValue.y) - me.transform.position;
         float z = Mathf.Atan2(dir_gun.y, dir_gun.x) * Mathf.Rad2Deg;
         rot = z - 90f;
-        float angle = Vector2.SignedAngle(Vector2.right, dir_gun) - 90f;
+        angle = Vector2.SignedAngle(Vector2.right, dir_gun) - 90f;
 
         //startpos.localPosition = _startpos;
         if (!isFire)

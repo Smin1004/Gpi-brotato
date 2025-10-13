@@ -19,3 +19,4 @@ public class Bullet : Bullet_Base
         Hit_Event();
     }
 }
+    
