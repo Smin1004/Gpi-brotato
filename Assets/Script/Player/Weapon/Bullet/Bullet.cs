@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Bullet : Bullet_Base
 {
-    protected override void Update()
+    protected void Update()
     {
-        base.Update();
         if(!isStop) transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
     }
 
     protected override void Hit_Event()
     {
-        Destroy(gameObject);
+        ReturnToPool();
     }
 
     protected override void Hit_Wall(Collision2D hit){

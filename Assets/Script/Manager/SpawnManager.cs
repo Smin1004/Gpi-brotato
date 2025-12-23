@@ -9,10 +9,14 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] float notSpawnRange;
     [SerializeField] GameObject Warning;
     [SerializeField] Enemy_Base testEnemy;
+    [SerializeField] float warningTime;
     [SerializeField] float spawnTime;
 
+    WaitForSeconds _warningTime, _spawnTime;
     void Start()
     {
+        _warningTime = new WaitForSeconds(warningTime);
+        _spawnTime = new WaitForSeconds(spawnTime);
         StartCoroutine(Spawn());
     }
 
@@ -29,10 +33,11 @@ public class SpawnManager : MonoBehaviour
 
             spawnPos = Player.Instance.transform.position + new Vector3(x, y);
 
-            Destroy(Instantiate(Warning, spawnPos, Quaternion.identity, this.transform), 1);
-            yield return new WaitForSeconds(spawnTime);
+            ObjectPoolManager.Instance.Spawn(Warning, spawnPos, Quaternion.identity).GetComponent<PoolableObject>().TimeReturn(warningTime);
+            yield return _warningTime;
 
-            var temp = Instantiate(testEnemy, spawnPos, Quaternion.identity, this.transform);
+            ObjectPoolManager.Instance.Spawn(testEnemy.gameObject, spawnPos, Quaternion.identity);
+            yield return _spawnTime;
         }
     }
 }

@@ -1,6 +1,7 @@
+using NUnit.Framework;
 using UnityEngine;
 
-public abstract class Enemy_Base : MonoBehaviour
+public abstract class Enemy_Base : PoolableObject
 {
     [Header("Enemy_Base")]
     protected Transform target;
@@ -26,7 +27,7 @@ public abstract class Enemy_Base : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (stopMove) return;
+        if (stopMove || isDie) return;
 
         target = Player.Instance.transform;
         direction = (target.position - transform.position).normalized;
@@ -43,9 +44,17 @@ public abstract class Enemy_Base : MonoBehaviour
         {
             if(isDie) return;
             isDie = true;
-            Destroy(this.gameObject);
+            ReturnToPool();
         }
     }
+
+    public override void SpawnInit()
+    {
+        maxHP = HP;
+        isDie = false;
+        isKnockBack = false;
+    }
+
     void KnockOff()
     {
         isKnockBack = false;

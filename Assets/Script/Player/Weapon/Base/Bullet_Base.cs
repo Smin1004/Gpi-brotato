@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Bullet_Base : MonoBehaviour
+public abstract class Bullet_Base : PoolableObject
 {
     float cur_lifeTime;
     //[SerializeField] protected float lifeTime;
@@ -19,12 +19,7 @@ public abstract class Bullet_Base : MonoBehaviour
     {
         moveSpeed = _moveSpeed;
         damage = _damage;
-    }
-
-    protected virtual void Update()
-    {
-        cur_lifeTime += Time.deltaTime;
-        if (cur_lifeTime > 5) Destroy(gameObject);
+        TimeReturn(5);
     }
 
     private void OnCollisionEnter2D(Collision2D hit)
