@@ -6,6 +6,7 @@ public abstract class Enemy_Base : PoolableObject
     [Header("Enemy_Base")]
     protected Transform target;
     [SerializeField] protected GameObject die_effect;
+    [SerializeField] GameObject exp;
 
     [SerializeField] float HP;
     [SerializeField] float maxHP;
@@ -44,6 +45,7 @@ public abstract class Enemy_Base : PoolableObject
         {
             if(isDie) return;
             isDie = true;
+            ObjectPoolManager.Instance.Spawn(exp, transform.position, transform.rotation);
             ReturnToPool();
         }
     }

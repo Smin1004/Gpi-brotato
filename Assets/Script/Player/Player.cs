@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [Header("Status")]
     public int HP;
     public float moveSpeed;
+    public float coinMagnetRange;
+    public int curExp;
 
     [Header("Weapon")]
 
@@ -26,17 +28,16 @@ public class Player : MonoBehaviour
     // public List<Gun_Base> prefabList = new List<Gun_Base>();
 
     [Header("Values")]
-    [SerializeField] Vector2 checkbox_Size;
-    [SerializeField] float cur_ui_delay;
-    float x, y;
 
+    float x, y;
     bool isDamage;
     bool isSlow;
-    public bool isActive = false;
+    public bool isNotActive = false;
 
     [Header("Pos")]
     [SerializeField] Vector3 localPosition;
     [SerializeField] Vector2 dir;
+    [SerializeField] LayerMask expLayer;
 
     public void _Instance()
     {
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
     {
         //_Instance();
         rigid = GetComponent<Rigidbody2D>();
+        expLayer = LayerMask.GetMask("Exp");
         //anim = GetComponent<Animator>();
         //stat = GameManager.Instance.stat;
         //HP = stat.hp;
@@ -59,10 +61,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         pos = transform.position;
-        //if (!isActive) return;
+        if (isNotActive) return;
 
         Move();
         WeaponSetting();
+        FindExp();
     }
 
     void WeaponSetting()
@@ -121,6 +124,32 @@ public class Player : MonoBehaviour
             // yield return new WaitForSeconds(invincible_Time);
             // isDamage = false;
         }
+    }
+
+    
+    protected void FindExp()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, coinMagnetRange, expLayer);
+        if (colliders.Length == 0) return;
+        Debug.Log("test");
+        Vector3 outValue = Vector3.zero;
+        foreach (Collider2D col in colliders)
+        {
+            col.GetComponent<Exp>().Get();
+        }
+    }
+    public void LevelUp()
+    {
+        curExp++;
+        if(curExp < 10) return;
+        isNotActive = true;
+        curExp = 0;
+        
+    }
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, coinMagnetRange);
     }
 
     public void AllStop(bool isDie)

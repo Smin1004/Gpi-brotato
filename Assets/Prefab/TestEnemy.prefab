@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   die_effect: {fileID: 0}
+  exp: {fileID: 7818086371967806807, guid: 501f089a2ebab1a43a9ac3b982077f0a, type: 3}
   HP: 10
   maxHP: 10
   fireRange: 0
